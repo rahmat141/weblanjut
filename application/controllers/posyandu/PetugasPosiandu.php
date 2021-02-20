@@ -101,7 +101,6 @@ class PetugasPosiandu extends CI_Controller
         // $registrasi = new Registrasi();
 
         // $registrasi->_sendEmail();
-
         $petugas = $this->petugas_model;
 
         $email = $this->input->post('email');

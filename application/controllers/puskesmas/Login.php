@@ -7,6 +7,7 @@ class Login extends CI_Controller
         parent::__construct();
         $this->load->model('Petugas_model');
         $this->load->model('Puskesmas_model');
+        $this->load->model('M_Admin');
 
         $this->load->library('form_validation');
         $this->load->helper('form');
@@ -30,20 +31,23 @@ class Login extends CI_Controller
         // $roles = $this->uri->segment(3);
 
         $code = $this->Puskesmas_model->getVerifyCode($uri);
+        // $adminCode = $this->M_Admin->cekKodeAdmin();
 
         $kode = $this->input->post('code');
 
-        if ($kode == $code['password']) {
-            $this->session->set_userdata('sesi_verify', true);
-            if ($uri == 'Puskesmas') {
-                redirect('puskesmas/login_puskesmas');
-            } elseif ($uri == 'Posyandu') {
-                redirect('posyandu/login_posyandu');
+            if ($kode == $code['password']) {
+                $this->session->set_userdata('sesi_verify', true);
+                if ($uri == 'Puskesmas') {
+                    redirect('puskesmas/login_puskesmas');
+                } elseif ($uri == 'Posyandu') {
+                    redirect('posyandu/login_posyandu');
+                } elseif ($uri == 'Superadmin'){
+                    redirect('admin/login');
+                }
+            } else {
+                $this->session->set_flashdata('pesan', 'kode verifikasi salah');
+                redirect('verify/code/' . $uri);
             }
-        } else {
-            $this->session->set_flashdata('pesan', 'kode verifikasi salah');
-            redirect('verify/code/' . $uri);
-        }
     }
 
     public function cek_login()

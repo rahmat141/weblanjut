@@ -56,6 +56,16 @@
                             'jadwal'
                         ); ?>">Posyandu</a></button></center>
                     </td>
+                    <td>
+                        <p style="color:DodgerBlue">...................</p>
+                    </td>
+                    <td>
+                        <img src="<?= base_url() ?>assets/img/admin.png" alt="" height="150px" weight="200px">
+                        <br>
+                        <center> <button><a href="<?php echo site_url(
+                            'verify/code/Superadmin'
+                        ); ?>">Superadmin</a></button></center>
+                    </td>
 
 
                 </tr>

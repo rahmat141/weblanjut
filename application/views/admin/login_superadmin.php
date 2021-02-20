@@ -52,7 +52,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Login Posyandu</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Login Superadmin</h1>
                                     </div>
 
                                     <?= $this->session->flashdata('message') ?>
@@ -60,7 +60,7 @@
 
 
                                     <form class="user" action="<?= site_url(
-                                                                    'posyandu/PetugasPosiandu'
+                                                                    'admin/login'
                                                                 ) ?>" method="POST">
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -83,11 +83,7 @@
 
                                     <hr>
 
-                                    <div class="text-center">
-                                        <a class="small" href="<?php echo site_url(
-                                                                    'posyandu/PetugasPosiandu/registrasi'
-                                                                ); ?>">Create an Account!</a>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -109,7 +105,7 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" action="<?php echo site_url(
-                                                    'posyandu/home'
+                                                    'admin/dashboard'
                                                 ); ?>">
                         <div class="form-group">
                             <label for="inputState">Wilayah</label>
@@ -134,7 +130,9 @@
         </div>
     </div>
 
-   
+
+
+
     <!-- end moda; -->
 
 
@@ -160,4 +158,5 @@
             $('#notifSukses').modal('show');
         });
     </script>
+    <!-- <h1>asdsadsa</h1> -->
 <?php endif; ?>

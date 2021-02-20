@@ -146,18 +146,65 @@ class Petugas_model extends CI_Model
         return false;
     }
 
+    public function doLogin3()
+    {
+        $post = $this->input->post();
+
+        // cari user berdasarkan email dan username
+        $this->db->where('status', 'puskesmas');
+        $this->db
+            ->where('nama', $post['email'])
+            ->or_where('username', $post['email']);
+        $user = $this->db->get($this->_table)->row();
+
+        $data['id_petugas'] = $user->id_petugas;
+        $data['username'] = $user->username;
+        $data['nama'] = $user->nama;
+        $data['foto'] = $user->foto;
+        $data['password'] = $user->password;
+        $data['status'] = $user->status;
+        //  $data['pekerjaan'] = $user->pekerjaan;
+
+        // jika user terdaftar
+        if ($user) {
+            // periksa password-nya
+            //$isPasswordTrue = password_verify($post["password"], $user->password);
+            $isPasswordTrue =
+                $post['password'] == $user->password ? 'True' : '';
+            // periksa role-nya
+            //$isAdmin = $user->role == "admin";
+            $isAdmin = 'admin';
+
+            // jika password benar dan dia admin
+            if ($isPasswordTrue && $isAdmin && $user->status == 'superadmin') {
+                // login sukses yay!
+                $this->session->set_userdata(['user_logged' => $data]);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // login gagal
+        return false;
+    }
+
     public function setWilayah()
     {
+
+
         $post = $this->input->post();
 
         $temp = $this->session->userdata('user_logged');
 
         $temp['wilayah'] = $post['wilayah'];
 
-        //var_dump($temp);
+
+        // var_dump($temp);die;
 
         $this->session->set_userdata('user_logged', $temp);
     }
+
 
     public function isNotLogin()
     {
