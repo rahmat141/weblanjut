@@ -16,7 +16,7 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                     <a class="mb-2 mr-2 btn btn-success" style="color: white;" href="<?= base_url('admin/posyandu/tambahJadwal') ?>">Tambah</a>
-                        <table class="mb-0 table" id="myTable">
+                        <table class="display" id="example">
                             <thead>
                                 <tr>
                                     <th>Jadwal ID</th>

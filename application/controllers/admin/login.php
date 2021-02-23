@@ -38,7 +38,7 @@ class Login extends CI_Controller
                             'Berhasil Login'
                         );
                         //var_dump($this->session->user_logged->username)."<br>".;die;
-                        redirect(site_url('admin/Login'));
+                        redirect(site_url('admin/dashboard'));
                     } else {
                         $this->session->set_flashdata(
                             'error',

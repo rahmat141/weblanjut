@@ -11,12 +11,15 @@
                 </div>
             </div>
         </div>
+
+        <a class="mb-2 mr-2 btn btn-success" style="color: white;" href="<?= base_url('admin/posyandu/tambahWilayah') ?>">Tambah</a>
+
         <div class="row">
             <div class="col-sm">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                    <a class="mb-2 mr-2 btn btn-success" style="color: white;" href="<?= base_url('admin/posyandu/tambahWilayah') ?>">Tambah</a>
-                        <table class="mb-0 table" id="myTable">
+
+                        <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Wilayah ID</th>
@@ -42,7 +45,7 @@
                                                                                     'admin/posyandu/editWilayah/' . $value->id_wilayah
                                                                                 ); ?>">Update</a>
                                             <a class="btn btn-danger" href="<?php echo base_url(
-                                                                                'jadwal/delete/' . $value->id_wilayah
+                                                                                'admin/posyandu/deleteWilayah/' . $value->id_wilayah
                                                                             ); ?>">Delete</a>
                                         </td>
 

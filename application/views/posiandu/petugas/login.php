@@ -134,10 +134,17 @@
         </div>
     </div>
 
-   
+
     <!-- end moda; -->
 
-
+    <?php if ($this->session->flashdata('success')) : ?>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#notifSukses').modal('show');
+            });
+        </script>
+    <?php endif; ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
@@ -152,12 +159,3 @@
 </body>
 
 </html>
-
-<?php if ($this->session->flashdata('success')) : ?>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#notifSukses').modal('show');
-        });
-    </script>
-<?php endif; ?>

@@ -20,8 +20,18 @@
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
-    <link href="<?= base_url('assets/admin/main.css')?>" rel="stylesheet">
+
+    <link href="<?= base_url('assets/admin/main.css') ?>" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.23/css/dataTables.jqueryui.min.css" rel="stylesheet">
+    <!-- https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css -->
+
+    <link href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.datatables.net/1.10.23/css/dataTables.jqueryui.min.css" rel="stylesheet"> -->
+
+
+
+
 </head>
 
 <body>
@@ -98,17 +108,15 @@
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <a href="<?= site_url('puskesmas/login/logout')?>" tabindex="0" class="dropdown-item">Logout</a>
+                                            <a href="<?= site_url('puskesmas/login/logout') ?>" tabindex="0" class="dropdown-item">Logout</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        Superadmin
                                     </div>
-                                    <div class="widget-subheading">
-                                        VP People Manager
-                                    </div>
+                                    
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
                                     <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

@@ -1,9 +1,10 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Posyandu extends CI_Controller {
-    
+class Posyandu extends CI_Controller
+{
+
     public function __construct()
     {
         parent::__construct();
@@ -16,39 +17,39 @@ class Posyandu extends CI_Controller {
         $this->load->model("Petugas_model");
         $this->load->model('pasienrujukan_model');
         $this->load->model('M_Admin');
-        
-        if($this->Petugas_model->isNotLogin()) redirect(site_url('posyandu/PetugasPosiandu'));
 
+        if ($this->Petugas_model->isNotLogin()) redirect(site_url('posyandu/PetugasPosiandu'));
     }
 
     public function index()
     {
         // $this->Petugas_model->setWilayah();
 
-        $tamp["jmlDaftar"] = $this->Regisanak_model->getCount();
-        $tamp["jmlPencatatan"] = $this->Pencatatan_model->getCount();
-        $tamp["jmlLaporan"] = $this->Pencatatan_model->getCountLaporan();
-        $tamp["jmlHistory"] = $this->Pencatatan_model->getCountHistory();
+        $tamp["jmlDaftar"] = $this->M_Admin->getCountJmlDaftar();
+        $tamp["jmlPencatatan"] = $this->M_Admin->getCountJmlPencatatan();
+        $tamp["jmlLaporan"] = $this->M_Admin->getCountJmlLaporan();
+        $tamp["jmlHistory"] = $this->M_Admin->getCountJmlHistory();
         $tamp["cek"] = array();
         $bln = "";
-        $tahun = gmdate("Y", time()+60*60*8);
-        for ($i=0; $i <12 ; $i++) { 
-            if ($i+1<=9) {
-                $bln = "0".($i+1);                
-            }else{
-                $bln = ($i+1);
-            }$cek = $this->Regisanak_model->getlike($tahun,$bln);
-                $tamp["cek"][$i]=$cek[0]->jml;
-                //echo $tamp["cek"][$i]."<br>";
+        $tahun = gmdate("Y", time() + 60 * 60 * 8);
+        for ($i = 0; $i < 12; $i++) {
+            if ($i + 1 <= 9) {
+                $bln = "0" . ($i + 1);
+            } else {
+                $bln = ($i + 1);
+            }
+            $cek = $this->Regisanak_model->getlike($tahun, $bln);
+            $tamp["cek"][$i] = $cek[0]->jml;
+            //echo $tamp["cek"][$i]."<br>";
         }
 
-        $ubah = gmdate("Y-m-d", time()+60*60*8);
-        $pecah = explode("-",$ubah);
+        $ubah = gmdate("Y-m-d", time() + 60 * 60 * 8);
+        $pecah = explode("-", $ubah);
         $tahun = $pecah[0];
 
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu',$tamp);
+        $this->load->view('admin/posyandu', $tamp);
         $this->load->view('admin/template/footer');
     }
 
@@ -59,7 +60,7 @@ class Posyandu extends CI_Controller {
         ];
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu_kodeAkses',$data);
+        $this->load->view('admin/posyandu_kodeAkses', $data);
         $this->load->view('admin/template/footer');
     }
 
@@ -70,7 +71,7 @@ class Posyandu extends CI_Controller {
         ];
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu_editkodeAkses',$data);
+        $this->load->view('admin/posyandu_editkodeAkses', $data);
         $this->load->view('admin/template/footer');
     }
 
@@ -195,7 +196,8 @@ class Posyandu extends CI_Controller {
             'nama_posyandu' => $this->input->post('nama_posyandu'),
         ];
         $this->M_Admin->insert('wilayah', $data);
-        redirect('admin/posyandu/posyandu_wilayah');
+
+        redirect('admin/posyandu/wilayahPosyandu');
     }
 
     public function editWilayah($id)
@@ -227,12 +229,12 @@ class Posyandu extends CI_Controller {
         $this->M_Admin->update('wilayah', $id, $data);
         redirect('admin/posyandu/wilayahPosyandu');
     }
-    
+
     public function dataPetugas()
     {
         $petugas = $this->Mpetugas;
         $data['daftarpetugas'] = $petugas->getAll();
-        
+
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
 
@@ -242,48 +244,55 @@ class Posyandu extends CI_Controller {
 
     public function daftarPasien()
     {
-        $data["pendaftaran"] = $this->Regisanak_model->getAll();
+        $data["pendaftaran"] = $this->M_Admin->getAllPasienPosyandu();
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
         $this->load->view('admin/posyandu_daftarPasien', $data);
         $this->load->view('admin/template/footer');
     }
 
-    public function pencatatanMedis(){
-    	$data["pencatatan"] = $this->Pencatatan_model->get_by_role();
-    	$this->load->view('admin/template/header');
-        $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu_pencatatanMedis',$data);
-        $this->load->view('admin/template/footer');
-    }
-
-    public function laporan(){
-    	$data["pendaftaran"] = $this->Pencatatan_model->getAllHistory2();
-    	$this->load->view('admin/template/header');
-        $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu_laporan',$data);
-        $this->load->view('admin/template/footer');
-    }
-
-    public function historyLaporan(){
-        $data["history"] = $this->Pencatatan_model->getAllHistory();
+    public function pencatatanMedis()
+    {
+        $data["pencatatan"] = $this->M_Admin->get_by_role_pencatatanMedis();
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
-        $this->load->view('admin/posyandu_historyLaporan',$data);
+        $this->load->view('admin/posyandu_pencatatanMedis', $data);
+        $this->load->view('admin/template/footer');
+    }
+
+    public function laporan()
+    {
+        $data["pendaftaran"] = $this->M_Admin->getAllLaporanPosyandu();
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/template/sidebar');
+        $this->load->view('admin/posyandu_laporan', $data);
+        $this->load->view('admin/template/footer');
+    }
+
+    public function historyLaporan()
+    {
+        $data["history"] = $this->M_Admin->getAllHistoryPosyandu();
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/template/sidebar');
+        $this->load->view('admin/posyandu_historyLaporan', $data);
         $this->load->view('admin/template/footer');
     }
 
     public function pasienRujukan()
     {
-        $data["pasienrujukans"] = $this->pasienrujukan_model->getAll();
-    	$this->load->view('admin/template/header');
+        $data["pasienrujukans"] = $this->M_Admin->getAllPasienRujukan();
+        $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
-		$this->load->view('admin/posyandu_pasienRujukan', $data);
-		$this->load->view('admin/template/footer');
+        $this->load->view('admin/posyandu_pasienRujukan', $data);
+        $this->load->view('admin/template/footer');
     }
-    
 
+    public function deleteWilayah($id_wilayah)
+    {
 
+        $this->db->where('id_wilayah', $id_wilayah);
+        $this->db->delete('wilayah');
+        // $this->Mjadwal->deleteMk($id_jadwal);
+        redirect('admin/posyandu/wilayahPosyandu');
+    }
 }
-    
-?>

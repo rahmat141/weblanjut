@@ -7,12 +7,12 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_Admin');
-        $this->load->model('Petugas_model');
+        // $this->load->model('Petugas_model');
     }
 
     public function index()
     {
-        $this->Petugas_model->setWilayah();
+        // $this->Petugas_model->setWilayah();
         $this->load->view('admin/template/header');
         $this->load->view('admin/template/sidebar');
         $this->load->view('admin/dashboard');

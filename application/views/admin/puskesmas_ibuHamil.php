@@ -15,7 +15,7 @@
             <div class="col-sm">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <table class="mb-0 table" id="myTable">
+                        <table class="display" id="example">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -54,9 +54,6 @@
                 </div>
             </div>
             <script>
-                $(document).ready(function() {
-                    $('#myTable').DataTable();
-                });
             </script>
         </div>
     </div>
