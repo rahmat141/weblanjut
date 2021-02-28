@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://a8dafdc10e73.ngrok.io/weblanjut/'; // harus disetting
+$config['base_url'] = 'http://localhost/weblanjut/'; // harus disetting
 
 /*
 |--------------------------------------------------------------------------

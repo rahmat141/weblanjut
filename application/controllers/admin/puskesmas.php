@@ -125,6 +125,16 @@ class Puskesmas extends CI_Controller {
         $this->load->view('admin/template/footer');
     }
 
+    public function laporanDetail($id)
+    {
+        $data['ibuhamil'] = $this->ibuhamil_model->getById($id);
+        $data['pemeriksaans'] = $this->pemeriksaan_model->getDataPemeriksaanPasien($id);
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/template/sidebar');
+        $this->load->view('admin/puskesmas_laporanDetail',$data);
+        $this->load->view('admin/template/footer');
+    }
+
     public function kelolaKategori()
     {
         $data['jenisBayar'] = $this->M_Admin->selectAll('jenis_pembayaran')->result_array();

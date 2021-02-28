@@ -178,4 +178,20 @@ class M_Admin extends CI_Model
         $this->db->delete($table, $id);
     }
 
+    public function getById($id)
+    {
+        return $this->db->get_where('regisanak', ["no_pasien" => $id])->row();
+    }
+
+    public function getJoinAll($id)
+    {
+        $this->db->select('pencatatan.*, regisanak.*');
+        $this->db->from('regisanak');
+        $this->db->join('pencatatan', 'pencatatan.no_pasien = regisanak.no_pasien');
+        $this->db->where("pencatatan.no_pasien", $id);
+        // $this->db->where("regisanak.status", 0);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }

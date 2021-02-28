@@ -269,6 +269,16 @@ class Posyandu extends CI_Controller
         $this->load->view('admin/template/footer');
     }
 
+    public function laporanDetail($id)
+    {
+        $data["pendaftaran"] = $this->M_Admin->getById($id);
+        $data["pencatatan"] = $this->M_Admin->getJoinAll($id);
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/template/sidebar');
+        $this->load->view('admin/posyandu_laporanDetail', $data);
+        $this->load->view('admin/template/footer');
+    }
+
     public function historyLaporan()
     {
         $data["history"] = $this->M_Admin->getAllHistoryPosyandu();
@@ -295,4 +305,115 @@ class Posyandu extends CI_Controller
         // $this->Mjadwal->deleteMk($id_jadwal);
         redirect('admin/posyandu/wilayahPosyandu');
     }
+
+    public function kelolaKategori()
+    {
+        $data['kategoriUsia'] = $this->M_Admin->selectAll('kategori_usia')->result_array();
+        $data['imunisasi'] = $this->M_Admin->selectAll('imunisasi')->result_array();
+        $data['vitamin'] = $this->M_Admin->selectAll('vitamin')->result_array();
+        $data['obatCacing'] = $this->M_Admin->selectAll('obat_cacing')->result_array();
+        $this->load->view('admin/template/header');
+        $this->load->view('admin/template/sidebar');
+        $this->load->view('admin/posyandu_KategoriMedis', $data);
+        $this->load->view('admin/template/footer');
+    }
+
+    public function getKategori($type, $id)
+    {
+        if ($type == 'kategoriUsia') {
+            $data = $this->M_Admin->selectWhere('kategori_usia', ['id_usia' => $id])->row();
+            echo json_encode($data);
+        }elseif ($type == 'imunisasi') {
+            $data = $this->M_Admin->selectWhere('imunisasi', ['id_imunisasi' => $id])->row();
+            echo json_encode($data);
+        }elseif ($type == 'vitamin') {
+            $data = $this->M_Admin->selectWhere('vitamin', ['id_vitamin' => $id])->row();
+            echo json_encode($data);
+        }elseif ($type == 'obatCacing') {
+            $data = $this->M_Admin->selectWhere('obat_cacing', ['id_obat' => $id])->row();
+            echo json_encode($data);
+        }
+        
+    }
+
+    public function addKategori($type)
+    {
+        if ($type == 'kategoriUsia') {
+            $data = [
+                'usia' => $this->input->post('kategoriUsia'),
+            ];
+    
+            $this->M_Admin->insert('kategori_usia', $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'imunisasi') {
+            $data = [
+                'imunisasi' => $this->input->post('jenisImunisasi'),
+            ];
+    
+            $this->M_Admin->insert('imunisasi', $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'vitamin') {
+            $data = [
+                'vitamin' => $this->input->post('vitamin'),
+            ];
+    
+            $this->M_Admin->insert('vitamin', $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'obatCacing') {
+            $data = [
+                'obatCacing' => $this->input->post('obatCacing'),
+            ];
+    
+            $this->M_Admin->insert('obat_cacing', $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }
+    }
+
+    public function editKategori($type, $id)
+    {
+        if ($type == 'kategoriUsia') {
+            $data = [
+                'usia' => $this->input->post('kategoriUsia'),
+            ];
+            $this->M_Admin->updatekategori('kategori_usia', ['id_usia' => $id ], $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'imunisasi') {
+            $data = [
+                'imunisasi' => $this->input->post('jenisImunisasi'),
+            ];
+            $this->M_Admin->updatekategori('imunisasi', ['id_imunisasi' => $id ], $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'vitamin') {
+            $data = [
+                'vitamin' => $this->input->post('vitamin'),
+            ];
+            $this->M_Admin->updatekategori('vitamin', ['id_vitamin' => $id ], $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'obatCacing') {
+            $data = [
+                'obatCacing' => $this->input->post('obatCacing'),
+            ];
+            $this->M_Admin->updatekategori('obat_cacing', ['id_obat' => $id ], $data);
+            redirect('admin/posyandu/kelolaKategori');
+        }
+    }
+
+    public function hapusKategori($type, $id)
+    {
+        if ($type == 'kategoriUsia') {
+            $this->M_Admin->deleteKategori('kategori_usia', ['id_usia' => $id]);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'imunisasi') {
+            $this->M_Admin->deleteKategori('imunisasi', ['id_imunisasi' => $id]);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'vitamin') {
+            $this->M_Admin->deleteKategori('vitamin', ['id_vitamin' => $id]);
+            redirect('admin/posyandu/kelolaKategori');
+        }elseif ($type == 'obatCacing') {
+            $this->M_Admin->deleteKategori('obat_cacing', ['id_obat' => $id]);
+            redirect('admin/posyandu/kelolaKategori');
+        }
+    }
+
+
 }

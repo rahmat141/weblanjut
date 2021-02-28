@@ -13,7 +13,7 @@ class Laporan extends CI_Controller
 
         $this->load->model("ibuhamil_model");
         $this->load->model("pemeriksaan_model");
-        // $this->load->model("regisanak_model");
+        $this->load->model("regisanak_model");
         $this->load->model("pencatatan_model");
         $this->load->library('form_validation');
         // load form and url helpers

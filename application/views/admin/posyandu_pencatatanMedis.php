@@ -15,6 +15,7 @@
             <div class="col-sm">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
+                        <a href="<?= base_url('admin/posyandu/kelolaKategori') ?>" class="mb-2 mr-2 btn btn-primary">Kelola Kategori</a>
                         <table class="display" id="example">
                             <thead>
                                 <tr>

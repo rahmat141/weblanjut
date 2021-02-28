@@ -27,6 +27,7 @@
                                     <th>Alamat</th>
                                     <th>Kelurahan</th>
                                     <th>No Hp</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,8 +44,8 @@
                                         <td><?php echo $data->alamat ?></td>
                                         <td><?php echo $data->kelurahan ?></td>
                                         <td><?php echo $data->notelp ?></td>
+                                        <td><a href="<?php echo site_url('admin/puskesmas/laporanDetail/' . $data->id_reg) ?>" class="btn btn-small text-info"><i class="fas fa-eye"></i> Detail</a></td>
                                     </tr>
-
                                 <?php } ?>
                             </tbody>
                         </table>
